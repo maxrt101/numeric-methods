@@ -1,0 +1,123 @@
+Umax = 100B
+U1 = Umax * sin(2 * pi * ft)
+f = 50 Hz
+R1 = 5 Ohm
+R2 = 4 Ohm
+R3 = 7 Ohm
+R4 = 2 Ohm
+L1 = 0.01 Hn
+L2 = 0.02 Hn
+L3 = 0.015 Hn
+C1 = 300 * 10^-6 F
+C2 = 150 * 10^-6 F
+C3 = 200 * 10^-6 F
+t = 0.2 s
+h = 0.00001
+
+
+du/dt = i/C
+
+U = I/C
+
+Active elements: C1 C2 C3
+
+{
+  du[C1] / dt = i1 / C1
+  du[C2] / dt = i2 / C2
+  du[C3] / dt = i4 / C3
+}
+
+Nodes:
+1. i2 + i3 - i1 = 0
+2. i4 - i3 = 0
+
+Circuits:
+1. u1 - u[C1] - u[R1] - u[R2] - u[C2] = 0
+2. u[R2] + u[C2] - u[R3] - u[C3] = 0
+
+U[R1] = i1 * R1
+U[R2] = i2 * R2
+U[R3] = i3 * R3
+
+u1 - u[C1] - i1 * R1 - i2 * R2 - u[C2] = 0
+i2 * R2 + u[C2] - i3 * R3 - u[C3] = 0
+
+u[C2] = (i3 * R3) - (i2 * R2) + u[C3]
+
+u1 - u[C1] - i1 * R1 - i2 * R2 - ((i3 * R3) - (i2 * R2) + u[C3]) = 0
+
+u1 - u[C1] - i1 / R1 - i2 / R2 - (i3 * R3) + (i2 * R2) - u[C3] = 0
+
+i2 + i3 - i1 = 0
+i3 = i1 - i2
+
+u1 - u[C1] - i1 * R1 - i2 * R2 - ((i1 - i2) * R3) + (i2 * R2) - u[C3] = 0
+
+u1 - u[C1] - i1 * R1 - i2 * R2 - i1 * R3 - i2 * R3 + (i2 * R2) - u[C3] = 0
+
+i1 * R1 + i1 * R3 = u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]
+
+i1(R1 + R3) = u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]
+
+i1 = (u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]) / (R1 + R3)
+
+i2 + i3 - i1 = 0
+
+i2 = i1 - i3 = (u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]) / (R1 + R3) - i3
+
+i4 - i3 = 0
+i4 = i3
+
+i2 = i1 - i3
+i3 = i1 - i2
+
+i1 = (u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]) / (R1 + R3)
+i3 = i1 - i2 = ((u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]) / (R1 + R3)) - i2
+
+u[R2] + u[C2] - u[R3] - u[C3] = 0
+i2 * R2 + u[C2] - (((u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]) / (R1 + R3)) - i2) * R3 - u[C3] = 0
+
+u[R2] + u[C2] - u[R3] - u[C3] = 0
+u[C2] = u[R3] + u[C3] - u[R2]
+
+u[C2] = (((u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]) / (R1 + R3)) - i2) * R3 + u[C3] - i2 * R2
+
+u1 - u[C1] - u[R1] - u[R2] - u[C2] = 0
+
+u1 - u[C1] - i1 * R1 - i2 * R2 - ((((u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]) / (R1 + R3)) - i2) * R3 + u[C3] - i2 * R2) = 0
+
+x0 = i2
+x1 = u[C1]
+x2 = u[C3]
+
+u1 - u[C1] - ((u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]) / (R1 + R3)) * R1 - i2 * R2 - ((((u1 - u[C1] - i2 * R2 - i2 * R3 + (i2 * R2) - u[C3]) / (R1 + R3)) - i2) * R3 + u[C3] - i2 * R2) = 0
+
+{
+  du[C1] / dt = i1 / C1
+  du[C2] / dt = i2 / C2
+  du[C3] / dt = i4 / C3
+}
+
+x[0] = i2
+x[1] = u[C1]
+x[2] = u[C3]
+
+{
+  du[C1] / dt = ((u1 - x[1] - x[0] * R2 - x[0] * R3 + (x[0] * R2) - x[2]) / (R1 + R3)) / C1
+  du[C2] / dt = x[0] / C2
+  du[C3] / dt = ((u1 - x[1] - x[0] * R2 - x[0] * R3 + (x[0] * R2) - x[2]) / (R1 + R3)) - x[0] / C3
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
