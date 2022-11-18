@@ -1,0 +1,221 @@
+
+U1 - UR1 - UL1 - UC1 = 0
+UR3 - UR2 - UL2 - UR4 = 0
+UC1 - UR3 = 0
+
+i1 = i2 + i3
+i3 = i4 + i5
+i5 = i6
+
+U2 = UR4
+
+I = U / L
+U = I / C
+
+{
+  i1 = UL1 / L1
+  UC1 = i2 / C2
+  i5 = UL2 / L2
+}
+
+U1 - UR1 - UL1 - UC1 = 0
+UR3 - UR2 - UL2 - UR4 = 0
+UC1 = UR3
+UC1 = i2 / C2
+
+i2 = UC1 * C2
+i2 = UR3 * C2
+i2 = (i4 * R3) * C2
+
+i2 = (i4 * R3) * C2
+i2 / C2 = i4 * R3
+i4 = i2 / (C2 * R3)
+i4 = UC1 / R3
+
+UL1 = U1 - UR1 - UC1
+UL2 = UR3 - UR2 - UR4
+
+UR1 = i1 * R1
+UR2 = i5 * R2
+UR3 = i4 * R3
+UR4 = i6 * R4
+
+
+UL1 = U1 - (i1 * R1) - UC1
+UL2 = (i4 * R3) - UR2 - (i6 * R4)
+
+i1 = i2 + i3
+i3 = i4 + i5
+
+i1 = i2 + i4 + i5
+
+{
+  di1/t = (U1 - (i1 * R1) - UC1) / L1
+  dUC1/t = UC1
+  di5/t = (UC1 - (i5 * R2) - (i5 * R4)) / L2
+}
+
+x[0] = i1
+x[1] = i5
+x[2] = UC1
+
+differential_equations = [
+    lambda t, i1, i5, uc1: (u1(t) - (i1 * R1) - uc1) / l1(i1),
+    lambda t, i1, i5, uc1: uc1,
+    lambda t, i1, i5, uc1: (uc1 - (i5 * R2) - (i5 * R4)) / L2
+]
+
+# x = [i1, i5, UC1]
+equations = [
+    lambda x, t: (u1(t) - (x[0] * R1) - x[2]) / l1(x[0]),
+    lambda x, t: x[2],
+    lambda x, t: (x[2] - (x[1] * R2) - (x[1] * R4)) / L2
+]
+
+
+
+#########################################################
+
+
+i1 UR4
+
+
+U1 - UR1 - UL1 - UC1 = 0
+UR3 - UR2 - UL2 - UR4 = 0
+UC1 - UR3 = 0
+
+i1 = i2 + i3
+i3 = i4 + i5
+i5 = i6
+
+
+{
+  i1 = UL1 / L1
+  UC1 = i2 / C1
+  i5 = UL2 / L2
+}
+
+U1 - UR1 - UL1 - UC1 = 0
+UL1 = U1 - UR1 - UC1
+
+UR3 - UR2 - UL2 - UR4 = 0
+UL2 = UR3 - UR2 - UR4
+
+I = U / L
+U = I / C
+
+UC1 = i2 / C1
+
+UR1 = i1 * R1
+UR2 = i5 * R2
+UR3 = i4 * R3
+UR4 = i6 * R4
+
+UR4 = i5 * R4
+
+UR4 = i5 * R4
+
+i5 = UR4/R4
+
+
+UL1 = U1 - (i1 * R1) - (i2 / C1)
+UL2 = ((i1 - i2 - UR4/R4) * R3) - ((UR4/R4) * R2) - UR4
+
+i1 = i2 + i3
+i3 = i4 + i5
+
+i1 = i2 + i4 + i5
+i4 = i1 - i2 - i5
+i5 = i1 - i2 - i4
+
+{
+  (U1 - (i1 * R1) - (i2 / C1)) / L1
+  i2 / C2
+  (((i1 - i2 - UR4/R4) * R3) - ((UR4/R4) * R2) - UR4) / L2
+}
+
+x[0] = i1
+x[1] = i2
+x[2] = UR4
+
+{
+  (U1 - (x[0] * R1) - (x[1] / C1)) / L1
+  x[1] / C2
+  (((x[0] - x[1] - x[2]/R4) * R3) - ((x[2]/R4) * R2) - x[2]) / L2
+}
+
+
+
+########################################
+
+U1 - UR1 - UL1 - UC1 = 0
+UR3 - UR2 - UL2 - UR4 = 0
+UC1 - UR3 = 0
+
+i1 = i2 + i3
+i3 = i4 + i5
+i5 = i6
+
+
+{
+  i1 = UL1 / L1
+  UC1 = i2 / C1
+  i5 = UL2 / L2
+}
+
+U1 - UR1 - UL1 - UC1 = 0
+UL1 = U1 - UR1 - UC1
+
+UR3 - UR2 - UL2 - UR4 = 0
+UL2 = UR3 - UR2 - UR4
+
+I = U / L
+U = I / C
+
+UC1 = i2 / C1
+
+UR1 = i1 * R1
+UR2 = i5 * R2
+UR3 = i4 * R3
+UR4 = i6 * R4
+
+UR4 = i5 * R4
+
+UR4 = i5 * R4
+
+i5 = UR4/R4
+
+i1 = UL1 / L1
+UL1 = i1 * L1
+
+U1 - (i1 * R1) - (i1 * L1) - (i2 / C1) = 0
+U1 - (i1 * R1) - (i1 * L1) = i2 / C1
+
+(U1 - (i1 * R1) - (i1 * L1)) * C1 = i2
+
+i1 = i2 + i3
+i3 = i4 + i5
+
+i1 = i2 + i4 + i5
+i4 = i1 - ((U1 - (i1 * R1) - (i1 * L1)) * C1) - i5
+
+{
+  i1 = (U1 - (i1 * R1) - UC1) / L1
+  UC1 = U1 - (i1 * R1) - (i1 * L1)
+  i5 = (((i1 - ((U1 - (i1 * R1) - (i1 * L1)) * C1) - i5) * R3) - (i5 * R2) - (i5 * R4)) / L2
+}
+
+x[0] = i1
+x[1] = i5
+x[2] = UC1
+
+{
+  i1 = (U1 - (x[0] * R1) - x[2]) / L1
+  UC1 = U1 - (x[0] * R1) - (x[0] * L1)
+  i5 = (((x[0] - ((U1 - (x[0] * R1) - (x[0] * L1)) * C1) - x[1]) * R3) - (x[1] * R2) - (x[1] * R4)) / L2
+}
+
+
+
+
+.
